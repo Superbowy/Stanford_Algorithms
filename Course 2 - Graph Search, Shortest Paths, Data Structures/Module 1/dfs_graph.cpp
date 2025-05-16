@@ -4,6 +4,7 @@
 #include <vector>
 
 void compute_dfs(std::vector<int> &vertices, std::vector<std::vector<int>> &edges, int root, int target) {
+
 	std::unordered_set<int> explored{root};
 	std::stack<int> S;
 	std::unordered_map<int, int> parent;
