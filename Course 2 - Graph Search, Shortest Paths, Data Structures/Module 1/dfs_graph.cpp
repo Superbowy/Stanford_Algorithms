@@ -1,18 +1,17 @@
 #include <iostream>
-#include <queue>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
-void compute_bfs(std::vector<int> &vertices, std::vector<std::vector<int>> &edges, int root, int target) {
+void compute_dfs(std::vector<int> &vertices, std::vector<std::vector<int>> &edges, int root, int target) {
 	std::unordered_set<int> explored{root};
-	std::queue<int> Q;
+	std::stack<int> S;
 	std::unordered_map<int, int> parent;
-	Q.push(root);
+	S.push(root);
 
-	while (!Q.empty()) {
-		int v = Q.front();
-		Q.pop();
+	while (!S.empty()) {
+		int v = S.top();
+		S.pop();
 
 		if (v == target)
 			break;
@@ -21,15 +20,16 @@ void compute_bfs(std::vector<int> &vertices, std::vector<std::vector<int>> &edge
 			if (!explored.contains(neighbor)) {
 				explored.insert(neighbor);
 				parent[neighbor] = v;
-				Q.push(neighbor);
+				S.push(neighbor);
 			}
 		}
 	}
+
 	if (target != -1) {
 		if (!explored.contains(target)) {
-			std::cout << "BFS Done. No path found";
+			std::cout << "DFS Done. No path found";
 		} else {
-			std::cout << "BFS Done. Path: ";
+			std::cout << "DFS Done. Path: ";
 
 			std::vector<int> path;
 			for (int at = target; at != root; at = parent[at])
@@ -45,6 +45,6 @@ void compute_bfs(std::vector<int> &vertices, std::vector<std::vector<int>> &edge
 			std::cout << "\n";
 		}
 	} else {
-		std::cout << "BFS Done.";
+		std::cout << "DFS Done.";
 	}
 }
